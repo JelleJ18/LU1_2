@@ -1,4 +1,4 @@
-const userService = require('../services/users.service');
+const usersService = require('../services/users.service');
 
 const usersController={
     get:(req, res, next)=>{
@@ -6,7 +6,7 @@ const usersController={
         usersService.get(userId, (error, user)=>{
             if(error) next(error);
             if(users){
-                res.render('users/users', {users : users});
+                res.render('users/table', {users : users});
             }
         });
     },

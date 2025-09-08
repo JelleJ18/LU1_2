@@ -1,0 +1,17 @@
+extends ../layout
+
+block content 
+  table.table
+    thead
+      tr
+        th.col #
+        th.col First Name
+        th.col Last Name
+        th.col Email
+    tbody
+      each user in users
+        tr
+          th #{user.id}
+          td #{user.first_name}
+          td #{user.last_name}
+          td #{user.email}

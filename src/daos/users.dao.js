@@ -1,15 +1,23 @@
-const data = require('../db/sql/example.data');
-const database = require('../db/sql/connection.db');
+const data = require('../db/sql/example.data')
+const database = require('../db/sql/connection')
 
 const usersDao ={
-    get:(userId, callback)=>{
-        if(userId === undefined){
+    get:(userId,callback)=>{
+        // let dbstring = 'SELECT * FROM customer'
+        // if(userId) dbstring += ' WHERE customer_id = '+userId;
+        database.query(
+            userId == undefined
             ? 'SELECT * FROM ??'
-            : 'SELECT * FROM ?? WHERE ?? = ?';
-        }
-        else{
-            let user = data.filter(user=> user.id == userId)[0];
-            return callback(undefined, user);
-        }
-    }
-}
+            : 'SELECT * FROM ?? WHERE ?? = ?',
+            userId == undefined
+            ?['customer']
+            :['customer','customer_id',userId],
+            (error,results)=>{
+                if(error) return callback(error,undefined);
+                if(results) return callback(undefined,results);
+        });
+    },
+    delete: ()=>{},
+};
+
+module.exports = usersDao;
