@@ -1,10 +1,8 @@
 const data = require('../db/sql/example.data')
-const database = require('../db/sql/connection')
+const database = require('../db/sql/connectiondb')
 
 const usersDao ={
     get:(userId,callback)=>{
-        // let dbstring = 'SELECT * FROM customer'
-        // if(userId) dbstring += ' WHERE customer_id = '+userId;
         database.query(
             userId == undefined
             ? 'SELECT * FROM ??'
@@ -17,6 +15,17 @@ const usersDao ={
                 if(results) return callback(undefined,results);
         });
     },
+    update:(email,userId,callback)=>{
+        database.query(
+            'UPDATE ?? SET ?? = ? WHERE ?? = ?',
+            ['customer', 'email', email, 'customer_id', userId],
+            (error, results)=>{
+                if(error) return callback(error, undefined);
+                if(results) callback(undefined, results);
+            }
+        )
+    },
+
     delete: ()=>{},
 };
 
