@@ -1,18 +1,22 @@
 extends ../layout
 
-block content 
+block content
+  h1 Gebruikers
   table.table
     thead
       tr
-        th.col #
-        th.col First Name
-        th.col Last Name
-        th.col Email
+        th ID
+        th Voornaam
+        th Achternaam
+        th Email
+        th Acties
     tbody
       each user in users
         tr
-          th #{user.id}
-          td #{user.first_name}
-          td #{user.last_name}
-          td #{user.email}
-          td a.btn.btn-primary(href='/users/#{user.id}/details') Details
+          td= user.id || user.customer_id
+          td= user.first_name
+          td= user.last_name
+          td= user.email
+          td
+            a.btn.btn-primary.me-2(href=`/users/${user.id || user.customer_id}/details`) Details
+            button.btn.btn-danger(type="button" onclick=`deleteButtonClicked(${user.id || user.customer_id}, this)`) Verwijder

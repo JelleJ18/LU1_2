@@ -1,5 +1,5 @@
 module.exports = {
-    debug: console.log,
-    info: console.info,
-    error: console.error,
+    debug: (...args) => console.log('[DEBUG]', ...args),
+    info: (...args) => console.info('[INFO]', ...args),
+    error: (...args) => console.error('[ERROR]', ...args),
 };
