@@ -14,7 +14,6 @@ function deleteButtonClicked(userId, buttonElement) {
                 alert('Verwijderen mislukt!');
                 return;
             }
-            // Verwijder de rij uit de tabel
             const row = buttonElement.closest('tr');
             if (row) row.remove();
         });

@@ -33,11 +33,9 @@ const usersService = {
   },
 
   delete: (userId, callback) => {
-    usersDao.get(undefined, (error, result) => {
+    usersDao.delete(userId, (error, result) => {
         if (error) return callback(error);
-        // Verwijder de user met het opgegeven id
-        let filtered = result.filter(u => u.id != userId);
-        return callback(undefined, filtered);
+        return callback(undefined, result);
     });
   }
 }

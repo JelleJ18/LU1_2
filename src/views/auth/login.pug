@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+  .container.mt-5
+    .row.justify-content-center
+      .col-md-4
+        h2.text-center.mb-4 Login
+        form(method="POST", action="/auth/login")
+          .mb-3
+            label.form-label(for="email") Email address
+            input.form-control(type="email", id="email", name="email", required, placeholder="Voer je e-mailadres in")
+          .mb-3
+            label.form-label(for="password") Wachtwoord
+            input.form-control(type="password", id="password", name="password", required, placeholder="Voer je wachtwoord in")
+          button.btn.btn-primary.w-100(type="submit") Login
