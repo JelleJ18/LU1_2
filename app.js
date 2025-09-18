@@ -13,6 +13,12 @@ const authController = require('./src/controllers/auth.controller');
 
 var app = express();
 
+console.log("DB_HOST =", process.env.DB_HOST);
+console.log("DB_PORT =", process.env.DB_PORT);
+console.log("DB_USER =", process.env.DB_USER);
+console.log("DB_DATABASE =", process.env.DB_DATABASE);
+console.log("DB_PASSWORD =", process.env.DB_PASSWORD ? "****" : "MISSING");
+
 // view engine setup
 app.set('views', path.join(__dirname, 'src', 'views'));
 app.set('view engine', 'pug');
