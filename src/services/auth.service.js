@@ -7,7 +7,6 @@ const authService = {
             if (error) return callback(error, undefined);
             if (!users || users.length === 0) return callback(null, false);
 
-            // Gebruik bcrypt-compare
             hash.compare(password, users[0].password, (err, isMatch) => {
                 if (err) return callback(err);
                 if (!isMatch) return callback(null, false);

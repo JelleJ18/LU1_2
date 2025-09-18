@@ -8,6 +8,7 @@ const session = require('express-session');
 const indexRouter = require('./src/routes/index.route');
 const usersRouter = require('./src/routes/users.route');
 const authRouter = require('./src/routes/auth.route');
+const filmsRouter = require('./src/routes/films.route');
 const authController = require('./src/controllers/auth.controller');
 
 var app = express();
@@ -40,9 +41,9 @@ app.use((req,res,next)=> {
 })
 
 app.use('/', indexRouter);
-app.use('/users', authController.isLoggedIn, usersRouter);
-app.use('/details', authController.isLoggedIn, usersRouter)
 app.use('/auth', authRouter)
+app.use('/films', filmsRouter);
+app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

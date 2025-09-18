@@ -1,0 +1,24 @@
+extends ../layout
+
+block content
+  .container
+    .row.justify-content-center
+      .col-md-6
+        .card.shadow.mb-4
+          .card-header.bg-primary.text-white.text-center
+            h4.mb-0 My Account
+          .card-body
+            .d-flex.flex-column.align-items-center
+              img(src="/images/movie_placeholder.png" class="rounded-circle mb-3" alt="Avatar" style="width: 120px; height: 120px; object-fit: cover;")
+              h5.card-title.mb-1 #{users.first_name} #{users.last_name}
+              p.text-muted.mb-2 #{users.email}
+              span.badge(title="Active status" class=users.active ? 'bg-success' : 'bg-secondary')
+                = users.active ? 'Active' : 'Inactive'
+            hr
+            .d-flex.justify-content-center.gap-2
+              a.btn.btn-primary(href='/users/' + users.customer_id + '/edit') Edit details
+              a.btn.btn-primary(href='/users/rentals') Rentals
+            hr
+            .d-flex.justify-content-center.gap-2
+              a.btn.btn-warning(href="/") Back to home
+              a.btn.btn-danger(href="#", onclick="logoutConfirm()") Logout

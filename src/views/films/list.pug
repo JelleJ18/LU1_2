@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+  .container
+    h1.mb-3 Films
+    form(method="get", action="/films", class="mb-4")
+      button.btn.btn-outline-primary(type="submit" name="available" value="1") Toon alleen beschikbare films
+      if query.available
+        a.btn.btn-secondary.ms-2(href="/films") Toon alle films
+    .row
+      each film in films
+        .col-md-3.mb-3
+          .card.h-100
+            a(href="/films/" + film.film_id)
+              img.card-img-top(src="/images/movie_placeholder.png" alt=film.title)
+            .card-body.text-center
+              h5.card-title= film.title
+              if film.available !== undefined
+                p.mb-0
+                  span.badge(class=film.available > 0 ? 'bg-success' : 'bg-danger')
+                    = film.available > 0 ? film.available + ' beschikbaar' : 'Niet beschikbaar'
+
+

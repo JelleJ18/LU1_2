@@ -2,12 +2,14 @@ var express = require('express');
 var router = express.Router();
 const usersController=require('../controllers/users.controller');
 const authController = require('../controllers/auth.controller')
+const filmsController = require('../controllers/films.controller');
 
-/* GET users listing. */
+router.get('/account', authController.isLoggedIn, usersController.account); 
 router.get('/', usersController.get);
-router.get('/:userId/details', usersController.get);
-router.get('/:userId/edit',authController.isLoggedIn, usersController.update);
+router.get('/:userId/account', usersController.get);
+router.get('/:userId/edit', authController.isLoggedIn, usersController.update);
 router.post('/:userId/edit', authController.isLoggedIn, usersController.validate, usersController.update);
 router.delete('/:userId', usersController.delete);
+router.get('/rentals', authController.isLoggedIn, filmsController.rentedByUser);
 
 module.exports = router;

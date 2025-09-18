@@ -13,9 +13,7 @@ const usersController = {
         usersService.get(userId, (error, user) => {
             if (error) return next(error);
             if (userId) {
-                res.render('users/details', { users: user[0] });
-            } else {
-                res.render('users/table', { users: user });
+                res.render('users/account', { users: user[0] });
             }
         });
     },
@@ -31,7 +29,7 @@ const usersController = {
             let { email, firstName, lastName, active } = req.body;
             usersService.update(email, userId, firstName, lastName, active, (error, result) => {
                 if (error) return next(error);
-                res.redirect(`/users/${userId}/details`);
+                res.redirect(`/users/account`);
             });
         }
     },
@@ -48,7 +46,29 @@ const usersController = {
                 data: result,
             });
         });
-    }
+    },
+    account: (req, res, next) => {
+        const userId = req.session.user.customer_id;
+        usersService.get(userId, (error, user) => {
+            if (error) return next(error);
+            if (!user || user.length === 0) return res.status(404).render('error', { message: 'Gebruiker niet gevonden', error: {} });
+            res.render('users/account', { users: user[0] });
+        });
+    },
+    details: (req, res, next) => {
+        const filmId = req.params.filmId;
+        filmsService.getById(filmId, (err, film) => {
+            if (err) return next(err);
+            if (!film) return res.status(404).render('error', { message: 'Film niet gevonden', error: {} });
+            filmsService.getActors(filmId, (err, actors) => {
+                if (err) return next(err);
+                filmsService.getAvailability(filmId, (err, available) => {
+                    if (err) return next(err);
+                    res.render('films/details', { film, actors, available });
+                });
+            });
+        });
+    },
 };
 
 module.exports = usersController;

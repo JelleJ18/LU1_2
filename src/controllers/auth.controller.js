@@ -14,13 +14,13 @@ const authController = {
             if (error) return res.render('auth/login', { error: 'Er is iets misgegaan.' });
             if (!user) return res.render('auth/login', { error: 'Onjuist e-mailadres of wachtwoord.' });
             req.session.user = user;
-            res.redirect('/users');
+            res.redirect('/users/account');
         });
     },
 
     logout: (req, res, next) => {
         req.session.destroy(() => {
-            res.redirect('/auth/login');
+            res.redirect('/');
         });
     },
 

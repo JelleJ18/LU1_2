@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+  .container
+    h1.mb-3 My Rentals
+    .row
+      each film in films
+        .col-md-3.mb-3
+          .card
+            a(href="/films/" + film.film_id)
+              img.card-img-top(src="/images/movie_placeholder.png" alt=film.title)
+            .card-body.text-center
+              h5.card-title= film.title
+
+

@@ -1,49 +1,51 @@
 extends ../layout
 
 block content
-    form(method='POST', action='/users/' + user.customer_id + '/edit')
-        div.mb-3
-            label(for="firstName" class="form-label") First Name
-            input(
-                type="text" 
-                name='firstName' 
-                class="form-control" 
-                value=user.first_name 
-                id="firstName" 
-                aria-describedby="emailHelp" 
-                required
-            )
-            label(for="lastName" class="form-label") Last Name
-            input(
-                type="text" 
-                name='lastName' 
-                class="form-control" 
-                value=user.last_name
-                id="lastName" 
-                aria-describedby="emailHelp" 
-                required
-            )
-            label(for="active" class="form-label") Active
-            input(
-                type="text" 
-                name='active' 
-                class="form-control" 
-                value=user.active 
-                id="active" 
-                aria-describedby="emailHelp" 
-                required
-            )
-            label(for="exampleInputEmail1" class="form-label") Email address
-            input(
-                type="email" 
-                name='email' 
-                class="form-control" 
-                value=user.email 
-                id="exampleInputEmail1" 
-                aria-describedby="emailHelp" 
-                required
-            )
-            div(id="emailHelp" class="form-text") We'll never share your email with anyone else.
-        div(class='row')
-            button.btn.btn-primary.me-2(type='submit') Submit
-            button.btn.btn-warning.ml-2(type='button' onclick='window.location.href="/users/' + user.customer_id + '/details"') Cancel
+  .container
+    .row.justify-content-center
+      .col-md-6
+        .card.shadow.mb-4
+          .card-header.bg-primary.text-white.text-center
+            h4.mb-0 Edit user details
+          .card-body
+            form(method='POST', action='/users/' + user.customer_id + '/edit')
+              .mb-3
+                label.form-label(for="firstName") First Name
+                input.form-control(
+                  type="text",
+                  name="firstName",
+                  id="firstName",
+                  value=user.first_name,
+                  required
+                )
+              .mb-3
+                label.form-label(for="lastName") Last Name
+                input.form-control(
+                  type="text",
+                  name="lastName",
+                  id="lastName",
+                  value=user.last_name,
+                  required
+                )
+              .mb-3
+                label.form-label(for="active") Status (1=active, 0=inactive)
+                input.form-control(
+                  type="text",
+                  name="active",
+                  id="active",
+                  value=user.active,
+                  required
+                )
+              .mb-3
+                label.form-label(for="exampleInputEmail1") E-mail
+                input.form-control(
+                  type="email",
+                  name="email",
+                  id="exampleInputEmail1",
+                  value=user.email,
+                  required
+                )
+                div.form-text(id="emailHelp") We'll never share your email with others.
+              .d-flex.justify-content-center.gap-2.mt-4
+                button.btn.btn-primary(type='submit') Opslaan
+                button.btn.btn-warning(type='button', onclick='window.location.href="/users/account"') Annuleren
