@@ -48,6 +48,17 @@ const usersDao = {
         }
     );
 },
+
+  findByEmail: (email, callback) => {
+    pool.query(
+        'SELECT * FROM customer WHERE email = ?',
+        [email],
+        (error, results) => {
+            if (error) return callback(error);
+            callback(null, results);
+        }
+    );
+},
 };
 
 module.exports = usersDao;

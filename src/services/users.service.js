@@ -42,6 +42,10 @@ const usersService = {
   create: (store_id, firstName, lastName, email, address_id, password, active, callback) => {
     usersDao.create(store_id, firstName, lastName, email, address_id, password, active, callback);
   },
+
+  findByEmail: (email, callback) => {
+    usersDao.findByEmail(email, callback);
+  },
 }
 
 module.exports = usersService;

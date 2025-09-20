@@ -21,6 +21,7 @@ html
               a.nav-link(href="/films") Films
             li.nav-item
               a.nav-link(href="/about") About
+          ul.navbar-nav.ms-auto.mb-2.mb-lg-0
             if authenticated
               li.nav-item
                 a.nav-link(href="/users/account") Account
@@ -29,6 +30,7 @@ html
             else 
               li.nav-item
                 a.nav-link(href="/auth/login") Login
-                a(href="/users/register") Nog geen account? Registreer hier!
-  .content
-    block content
+              li.nav-item
+                a.nav-link(href="/users/register") Don't have an account? Register here!
+    .content
+      block content

@@ -22,15 +22,22 @@ const usersController = {
         res.render('users/register');
     },
     create: (req, res, next) => {
-        const { email, firstName, lastName, password} = req.body;
+        const { email, firstName, lastName, password } = req.body;
         const store_id = 1; 
         const active = 1;
         const address_id = 5;
-        hash.create(password, (err, hashedPassword) => {
+
+        usersService.findByEmail(email, (err, users) => {
             if (err) return next(err);
-            usersService.create(store_id, firstName, lastName, email, address_id, hashedPassword, active, (error, result) => {
-                if (error) return next(error);
-                res.redirect('/auth/login');
+            if (users && users.length > 0) {
+                return res.render('users/register', { error: 'Account with this email already exists!' });
+            }
+            hash.create(password, (err, hashedPassword) => {
+                if (err) return next(err);
+                usersService.create(store_id, firstName, lastName, email, address_id, hashedPassword, active, (error, result) => {
+                    if (error) return next(error);
+                    res.redirect('/auth/login');
+                });
             });
         });
     },
