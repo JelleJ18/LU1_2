@@ -1,5 +1,13 @@
 extends layout
 
 block content
-  h1= 'About'
-  p The about page
+  h1 About my website and project
+  p Hieronder kun je het PDF-document die mijn requirements, epics en user stories bevatten direct bekijken:
+  iframe(
+    src="/pdfs/Epics en User Stories.pdf"
+    width="100%"
+    height="600px"
+    style="border: none;"
+  )
+  p
+    a(href="/pdfs/Epics en User Stories.pdf" target="_blank") Download PDF

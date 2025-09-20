@@ -9,13 +9,13 @@ block content
             h4.mb-0= film.title
           .card-body
             p.mb-1
-              strong Jaar:
+              strong Year:
               |  #{film.release_year}
             p.mb-1
-              strong Omschrijving:
+              strong Description:
               |  #{film.description}
             hr
-            h5 Acteurs
+            h5 Actors
             ul
               each actor in actors
                 li #{actor.first_name} #{actor.last_name}
