@@ -37,7 +37,11 @@ const usersService = {
         if (error) return callback(error);
         return callback(undefined, result);
     });
-  }
+  },
+
+  create: (email, firstName, lastName, password, callback) => {
+    usersDao.create(email, firstName, lastName, password, callback);
+  },
 }
 
 module.exports = usersService;

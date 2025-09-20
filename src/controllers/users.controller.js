@@ -17,6 +17,16 @@ const usersController = {
             }
         });
     },
+    registerForm: (req, res) => {
+        res.render('users/register');
+    },
+    create: (req, res, next) => {
+        const { email, firstName, lastName, password } = req.body;
+        usersService.create(email, firstName, lastName, password, (error, result) => {
+            if (error) return next(error);
+            res.redirect('/auth/login');
+        });
+    },
     update: (req, res, next) => {
         if (req.method === 'GET') {
             let userId = req.params.userId;

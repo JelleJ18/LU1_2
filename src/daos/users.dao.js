@@ -38,6 +38,17 @@ const usersDao = {
       }
     );
   },
+
+  create: (email, firstName, lastName, password, callback) => {
+    pool.query(
+        'INSERT INTO customer (email, first_name, last_name, password, active, store_id, create_date) VALUES (?, ?, ?, ?, 1, 1, NOW())',
+        [email, firstName, lastName, password],
+        (error, results) => {
+            if (error) return callback(error);
+            callback(null, results);
+        }
+    );
+},
 };
 
 module.exports = usersDao;
