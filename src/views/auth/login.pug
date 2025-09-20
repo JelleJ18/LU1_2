@@ -5,6 +5,8 @@ block content
     .row.justify-content-center
       .col-md-4
         h2.text-center.mb-4 Login
+        if error
+          .alert.alert-danger= error
         form(method="POST", action="/auth/login")
           .mb-3
             label.form-label(for="email") Email address

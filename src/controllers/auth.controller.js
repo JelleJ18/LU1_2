@@ -11,8 +11,8 @@ const authController = {
     validate: (req, res, next) => {
         const { email, password } = req.body;
         authService.login(email, password, (error, user) => {
-            if (error) return res.render('auth/login', { error: 'Er is iets misgegaan.' });
-            if (!user) return res.render('auth/login', { error: 'Onjuist e-mailadres of wachtwoord.' });
+            if (error) return res.render('auth/login', { error: 'Something went wrong!' });
+            if (!user) return res.render('auth/login', { error: 'Wrong email or password!' });
             req.session.user = user;
             res.redirect('/users/account');
         });

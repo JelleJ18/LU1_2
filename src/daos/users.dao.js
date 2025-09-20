@@ -26,23 +26,22 @@ const usersDao = {
   },
 
   delete: (userId, callback) => {
-    console.log('Verwijder userId:', userId);
-    pool.query(
-      'DELETE FROM customer WHERE customer_id = ?',
-      [userId],
-      (error, results) => {
-        console.log('Delete error:', error);
-        console.log('Delete results:', results);
-        if (error) return callback(error, undefined);
-        return callback(undefined, results);
-      }
-    );
-  },
+    pool.query('DELETE FROM payment WHERE customer_id = ?', [userId], (error) => {
+        if (error) return callback(error);
+        pool.query('DELETE FROM rental WHERE customer_id = ?', [userId], (error) => {
+            if (error) return callback(error);
+            pool.query('DELETE FROM customer WHERE customer_id = ?', [userId], (error, results) => {
+                if (error) return callback(error);
+                return callback(null, results);
+            });
+        });
+    });
+},
 
-  create: (email, firstName, lastName, password, callback) => {
+  create: (store_id, firstName, lastName, email, address_id, password, active, callback) => {
     pool.query(
-        'INSERT INTO customer (email, first_name, last_name, password, active, store_id, create_date) VALUES (?, ?, ?, ?, 1, 1, NOW())',
-        [email, firstName, lastName, password],
+        'INSERT INTO customer (store_id, first_name, last_name, email, address_id, password, active, create_date) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())',
+        [store_id, firstName, lastName, email, address_id, password, active],
         (error, results) => {
             if (error) return callback(error);
             callback(null, results);

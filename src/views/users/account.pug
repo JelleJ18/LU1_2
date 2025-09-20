@@ -22,3 +22,7 @@ block content
             .d-flex.justify-content-center.gap-2
               a.btn.btn-warning(href="/") Back to home
               a.btn.btn-danger(href="#", onclick="logoutConfirm()") Logout
+
+            // Zet het formulier HIER, buiten de .d-flex
+            form(method="POST", action="/users/delete", onsubmit="return confirm('Are you sure you want to delete your account? This can't be reverted!');" style="text-align:center; margin-top:1rem;")
+              button.btn.btn-danger(type="submit") Delete

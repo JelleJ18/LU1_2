@@ -13,5 +13,6 @@ router.delete('/:userId', usersController.delete);
 router.get('/rentals', authController.isLoggedIn, filmsController.rentedByUser);
 router.get('/register', usersController.registerForm);
 router.post('/register', usersController.create);
+router.post('/delete', authController.isLoggedIn, usersController.delete);
 
 module.exports = router;

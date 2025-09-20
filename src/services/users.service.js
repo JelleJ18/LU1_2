@@ -39,8 +39,8 @@ const usersService = {
     });
   },
 
-  create: (email, firstName, lastName, password, callback) => {
-    usersDao.create(email, firstName, lastName, password, callback);
+  create: (store_id, firstName, lastName, email, address_id, password, active, callback) => {
+    usersDao.create(store_id, firstName, lastName, email, address_id, password, active, callback);
   },
 }
 

@@ -1,5 +1,6 @@
 const usersService = require('../services/users.service');
 const logger = require('../../util/logger');
+const hash = require('../../util/hash'); // bovenaan toevoegen
 
 const usersController = {
     validate:(req, res, next) => {
@@ -21,10 +22,16 @@ const usersController = {
         res.render('users/register');
     },
     create: (req, res, next) => {
-        const { email, firstName, lastName, password } = req.body;
-        usersService.create(email, firstName, lastName, password, (error, result) => {
-            if (error) return next(error);
-            res.redirect('/auth/login');
+        const { email, firstName, lastName, password} = req.body;
+        const store_id = 1; 
+        const active = 1;
+        const address_id = 5;
+        hash.create(password, (err, hashedPassword) => {
+            if (err) return next(err);
+            usersService.create(store_id, firstName, lastName, email, address_id, hashedPassword, active, (error, result) => {
+                if (error) return next(error);
+                res.redirect('/auth/login');
+            });
         });
     },
     update: (req, res, next) => {
@@ -44,16 +51,14 @@ const usersController = {
         }
     },
     delete: (req, res, next) => {
-        let userId = req.params.userId;
+        let userId = req.session.user.customer_id;
         usersService.delete(userId, (error, result) => {
             if (error) {
                 console.log('Delete controller error:', error);
                 return next(error);
             }
-            res.json({
-                status: 200,
-                message: `User succesvol verwijderd`,
-                data: result,
+            req.session.destroy(() => {
+                res.redirect('/auth/login')
             });
         });
     },
