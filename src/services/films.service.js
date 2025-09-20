@@ -16,8 +16,11 @@ const filmsService = {
     getAvailability: (filmId, callback) => {
         filmsDao.getAvailability(filmId, callback);
     },
-    getAllWithAvailability: (callback) => {
-        filmsDao.getAllWithAvailability(callback);
+    getAllWithAvailability: (search, genre, sort, callback) => {
+        filmsDao.getAllWithAvailability(search, genre, sort, callback);
+    },
+    getGenres: (callback) => {
+        filmsDao.getGenres(callback);
     },
 };
 

@@ -4,9 +4,20 @@ block content
   .container
     h1.mb-3 Films
     form(method="get", action="/films", class="mb-4")
-      button.btn.btn-outline-primary(type="submit" name="available" value="1") Toon alleen beschikbare films
-      if query.available
-        a.btn.btn-secondary.ms-2(href="/films") Toon alle films
+      .row.g-2
+        .col-md-4
+          input.form-control(type="text", name="search", placeholder="Search on title...", value=query.search)
+        .col-md-3
+          select.form-select(name="genre")
+            option(value="") All Genres
+            each g in genres
+              option(value=g selected=(query.genre==g))= g
+        .col-md-2
+          button.btn.btn-primary(type="submit") Apply
+      .mt-2
+        button.btn.btn-outline-primary(type="submit" name="available" value="1") Only show available films
+        if query.available
+          a.btn.btn-secondary.ms-2(href="/films") Show all films
     .row
       each film in films
         .col-md-3.mb-3
@@ -18,6 +29,6 @@ block content
               if film.available !== undefined
                 p.mb-0
                   span.badge(class=film.available > 0 ? 'bg-success' : 'bg-danger')
-                    = film.available > 0 ? film.available + ' beschikbaar' : 'Niet beschikbaar'
+                    = film.available > 0 ? film.available + ' Available' : 'Not Available'
 
 

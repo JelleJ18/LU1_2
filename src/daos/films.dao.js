@@ -60,9 +60,9 @@ const filmsDao = {
             }
         );
     },
-    getAllWithAvailability: (callback) => {
-        pool.query(
-            `SELECT f.film_id, f.title, f.description, f.release_year,
+    getAllWithAvailability: (search, genre, sort, callback) => {
+        let sql = `
+            SELECT f.film_id, f.title, f.description, f.release_year,
                 (
                     SELECT COUNT(*) FROM inventory i
                     WHERE i.film_id = f.film_id
@@ -70,12 +70,39 @@ const filmsDao = {
                         SELECT r.inventory_id FROM rental r WHERE r.return_date IS NULL
                     )
                 ) AS available
-             FROM film f`,
-            (err, results) => {
-                if (err) return callback(err);
-                callback(null, results);
-            }
-        );
+            FROM film f
+            LEFT JOIN film_category fc ON f.film_id = fc.film_id
+            LEFT JOIN category c ON fc.category_id = c.category_id
+            WHERE 1=1
+        `;
+        const params = [];
+
+        if (search) {
+            sql += ' AND f.title LIKE ?';
+            params.push(`%${search}%`);
+        }
+        if (genre) {
+            sql += ' AND c.name = ?';
+            params.push(genre);
+        }
+        if (sort === 'title') {
+            sql += ' ORDER BY f.title';
+        } else if (sort === 'release_year') {
+            sql += ' ORDER BY f.release_year DESC';
+        } else {
+            sql += ' ORDER BY f.title';
+        }
+
+        pool.query(sql, params, (err, results) => {
+            if (err) return callback(err);
+            callback(null, results);
+        });
+    },
+    getGenres: (callback) => {
+        pool.query('SELECT DISTINCT name FROM category ORDER BY name', (err, results) => {
+            if (err) return callback(err);
+            callback(null, results.map(r => r.name));
+        });
     },
 };
 

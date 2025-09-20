@@ -1,6 +1,6 @@
 const usersService = require('../services/users.service');
 const logger = require('../../util/logger');
-const hash = require('../../util/hash'); // bovenaan toevoegen
+const hash = require('../../util/hash'); 
 
 const usersController = {
     validate:(req, res, next) => {
@@ -73,7 +73,7 @@ const usersController = {
         const userId = req.session.user.customer_id;
         usersService.get(userId, (error, user) => {
             if (error) return next(error);
-            if (!user || user.length === 0) return res.status(404).render('error', { message: 'Gebruiker niet gevonden', error: {} });
+            if (!user || user.length === 0) return res.status(404).render('error', { message: 'User not found', error: {} });
             res.render('users/account', { users: user[0] });
         });
     },
@@ -81,7 +81,7 @@ const usersController = {
         const filmId = req.params.filmId;
         filmsService.getById(filmId, (err, film) => {
             if (err) return next(err);
-            if (!film) return res.status(404).render('error', { message: 'Film niet gevonden', error: {} });
+            if (!film) return res.status(404).render('error', { message: 'Film not found', error: {} });
             filmsService.getActors(filmId, (err, actors) => {
                 if (err) return next(err);
                 filmsService.getAvailability(filmId, (err, available) => {
